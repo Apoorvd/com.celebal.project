@@ -95,8 +95,8 @@ domain_conf="<VirtualHost *:80> \n
     CustomLog ${APACHE_LOG_DIR}/access.log combined \n
 </VirtualHost>"
 
-echo -e $sample_webpage >  /var/www/your_domain/index.html
-echo -e $domain_conf > /etc/apache2/sites-available/your_domain.conf
+echo  $sample_webpage >  /var/www/your_domain/index.html
+echo  $domain_conf > /etc/apache2/sites-available/your_domain.conf
 
 a2ensite your_domain.conf
 
