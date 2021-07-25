@@ -3,8 +3,6 @@ apt-get update
 
 #Install System Firewall
 apt-get install ufw -y
-#Install nginx
-apt-get install nginx -y
 
 #Install FTP server
 apt-get install vsftpd -y
@@ -16,7 +14,7 @@ systemctl start vsftpd
 systemctl enable vsftpd
 
 echo "------------- On SysVInit ------------- "
-#service vsftpd start
+service vsftpd start
 #chkconfig --level 35 vsftpd on
 
 
@@ -43,7 +41,7 @@ pasv_min_port=10000 \n
 pasv_max_port=10100 \n
 allow_writeable_chroot=YES \n
 "
-echo -e $config > /etc/vsftpd.conf
+echo $config > /etc/vsftpd.conf
 ufw allow from any to any port 20,21,10000:10100 proto tcp
 systemctl restart vsftpd
 pswd="ftpuser"
