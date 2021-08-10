@@ -42,7 +42,7 @@ ssl_enable=NO \n
 pasv_enable=Yes \n
 pasv_min_port=10000 \n
 pasv_max_port=10100 \n
-allow_writeable_chroot=YES \n
+allow_writeable_chroot=YES
 "
 echo $config > /etc/vsftpd.conf
 ufw allow from any to any port 20,21,10000:10100 proto tcp
