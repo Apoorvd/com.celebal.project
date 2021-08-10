@@ -1,9 +1,12 @@
 #!/bin/bash
 apt-get update
 
+apt-get upgrade
+
 #Install System Firewall
 apt-get install ufw -y
 
+systemctl start ufw
 #Install FTP server
 apt-get install vsftpd -y
 
@@ -24,7 +27,7 @@ config="listen=NO \n
 listen_ipv6=YES \n
 anonymous_enable=NO \n
 local_enable=YES \n
-write_enable=YES  \n
+write_enable=YES \n
 local_umask=022 \n
 dirmessage_enable=YES \n
 use_localtime=YES \n
