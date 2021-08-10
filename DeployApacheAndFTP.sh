@@ -23,38 +23,44 @@ service vsftpd start
 
 mv /etc/vsftpd.conf /etc/vsftpd.conf_orig
 #write a config file here
-config="listen=NO \n
-listen_ipv6=YES \n
-anonymous_enable=NO \n
-local_enable=YES \n
-write_enable=YES \n
-local_umask=022 \n
-dirmessage_enable=YES \n
-use_localtime=YES \n
-xferlog_enable=YES \n
-connect_from_port_20=YES \n
-chroot_local_user=YES \n
-secure_chroot_dir=/var/run/vsftpd/empty \n
-pam_service_name=vsftpd \n
-rsa_cert_file=/etc/ssl/certs/ssl-cert-snakeoil.pem \n
-rsa_private_key_file=/etc/ssl/private/ssl-cert-snakeoil.key \n
-ssl_enable=NO \n
-pasv_enable=Yes \n
-pasv_min_port=10000 \n
-pasv_max_port=10100 \n
+config="listen=YES
+listen_ipv6=NO
+anonymous_enable=NO
+local_enable=YES
+write_enable=YES
+local_umask=022
+dirmessage_enable=YES
+use_localtime=YES
+xferlog_enable=YES
+connect_from_port_20=YES
+chroot_local_user=YES
+secure_chroot_dir=/var/run/vsftpd/empty
+pam_service_name=vsftpd
+rsa_cert_file=/etc/ssl/certs/ssl-cert-snakeoil.pem
+rsa_private_key_file=/etc/ssl/private/ssl-cert-snakeoil.key
+ssl_enable=NO
+pasv_enable=Yes
+pasv_min_port=10000
+pasv_max_port=10100
 allow_writeable_chroot=YES
 "
 echo $config > /etc/vsftpd.conf
 ufw allow from any to any port 20,21,10000:10100 proto tcp
+
+chown -cH root /etc/vsftpd.conf
+chmod +x /etc/vsftpd.conf
+apt install ftp
+
 systemctl restart vsftpd
-pswd="ftpuser"
-username="ftpuser"
-pass=$(perl -e 'print crypt($ARGV[0], "password")' $pswd)
-useradd -m -p "$pass" "$username"
+# if u want new user uncomments the line below
+#pswd="ftpuser"
+#username="ftpuser"
+#pass=$(perl -e 'print crypt($ARGV[0], "password")' $pswd)
+#useradd -m -p "$pass" "$username"
 #sudo passwd ftpuser
 #then enter ur passwrd
-bash -c "echo FTP TESTING > /home/ftpuser/FTP-TEST"
-apt install ftp
+#bash -c "echo FTP TESTING > /home/ftpuser/FTP-TEST"
+
 
 
 
